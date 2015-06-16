@@ -1,0 +1,23 @@
+{
+  "name": "imuta",
+  "version": "0.0.0",
+  "homepage": "https://github.com/timCF/imuta",
+  "description": "crazy small js lib to operate data using functional style (erlang, lisp, haskell etc)",
+  "main": "imuta.js",
+  "keywords": [
+    "js",
+    "functional",
+    "immutable"
+  ],
+  "authors": [
+    "timCF"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
