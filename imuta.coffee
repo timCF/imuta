@@ -1,4 +1,4 @@
-Imuta = {
+window.Imuta = {
 	clone: (some) -> 
 		switch Object.prototype.toString.call(some)
 			when "[object Undefined]" then undefined
@@ -36,4 +36,4 @@ Imuta = {
 		else
 			false
 }
-module.exports = Imuta
+#module.exports = Imuta
