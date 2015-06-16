@@ -1,3 +1,4 @@
+#Imuta = {
 window.Imuta = {
 	clone: (some) -> 
 		switch Object.prototype.toString.call(some)
@@ -35,5 +36,23 @@ window.Imuta = {
 						false
 		else
 			false
+	is_undefined: (some) -> Object.prototype.toString.call(some) == "[object Undefined]"
+	is_boolean: (some) -> Object.prototype.toString.call(some) == "[object Boolean]"
+	is_number: (some) -> Object.prototype.toString.call(some) == "[object Number]"
+	is_string: (some) -> Object.prototype.toString.call(some) == "[object String]"
+	is_function: (some) -> Object.prototype.toString.call(some) == "[object Function]"
+	is_null: (some) -> Object.prototype.toString.call(some) == "[object Null]"
+	is_list: (some) -> Object.prototype.toString.call(some) == "[object Array]"
+	is_map: (some) -> Object.prototype.toString.call(some) == "[object Object]"
+	flatten: (some) ->
+		if Imuta.is_list(some)
+			some.reduce(((acc, el) ->
+				if Imuta.is_list(el)
+					acc.concat(Imuta.flatten(el))
+				else
+					acc.push(Imuta.clone(el))
+					acc),[])
+		else
+			throw(new Error("Get not list input in Imuta.flatten func"))
 }
 #module.exports = Imuta

@@ -72,6 +72,44 @@
       } else {
         return false;
       }
+    },
+    is_undefined: function(some) {
+      return Object.prototype.toString.call(some) === "[object Undefined]";
+    },
+    is_boolean: function(some) {
+      return Object.prototype.toString.call(some) === "[object Boolean]";
+    },
+    is_number: function(some) {
+      return Object.prototype.toString.call(some) === "[object Number]";
+    },
+    is_string: function(some) {
+      return Object.prototype.toString.call(some) === "[object String]";
+    },
+    is_function: function(some) {
+      return Object.prototype.toString.call(some) === "[object Function]";
+    },
+    is_null: function(some) {
+      return Object.prototype.toString.call(some) === "[object Null]";
+    },
+    is_list: function(some) {
+      return Object.prototype.toString.call(some) === "[object Array]";
+    },
+    is_map: function(some) {
+      return Object.prototype.toString.call(some) === "[object Object]";
+    },
+    flatten: function(some) {
+      if (Imuta.is_list(some)) {
+        return some.reduce((function(acc, el) {
+          if (Imuta.is_list(el)) {
+            return acc.concat(Imuta.flatten(el));
+          } else {
+            acc.push(Imuta.clone(el));
+            return acc;
+          }
+        }), []);
+      } else {
+        throw new Error("Get not list input in Imuta.flatten func");
+      }
     }
   };
 
