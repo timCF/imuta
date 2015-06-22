@@ -54,5 +54,36 @@ window.Imuta = {
 					acc),[])
 		else
 			throw(new Error("Get not list input in Imuta.flatten func"))
+	put_in: (obj, path, value) ->
+		if (path.length == 0) then throw(new Error("put_in func failed, empty path"))
+		[head, tail...] = path
+		if (tail.length == 0)
+			obj[head] = Imuta.clone(value)
+			obj
+		else
+			if obj.hasOwnProperty(head)
+				obj[head] = Imuta.put_in(obj[head], tail, value)
+				obj
+			else
+				throw(new Error("put_in func failed, obj has no property "+head))
+	get_in: (obj, path) ->
+		if (path.length == 0) then throw(new Error("get_in func failed, empty path"))
+		[head, tail...] = path
+		if obj.hasOwnProperty(head) then (if (tail.length == 0) then Imuta.clone(obj[head]) else Imuta.get_in(obj[head], tail)) else undefined
+	update_in: (obj, path, func) ->
+		if (path.length == 0) then throw(new Error("update_in func failed, empty path"))
+		[head, tail...] = path
+		if obj.hasOwnProperty(head)
+			if (tail.length == 0)
+				if Imuta.is_function(func) and (func.length == 1)
+					obj[head] = Imuta.clone(func(obj[head]))
+					obj
+				else
+					throw(new Error("Get not function/1 handler in update_in func"))
+			else
+				obj[head] = Imuta.update_in(obj[head], tail, func)
+				obj
+		else
+			throw(new Error("update_in func failed, obj has no property "+head))
 }
 #module.exports = Imuta
