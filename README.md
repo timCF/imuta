@@ -36,4 +36,4 @@ And some simple boolean functions
 WARNING
 -------
 
-Avoid cyclic references!!!
+Cyclic references always gives stack overflow!!!
