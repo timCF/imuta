@@ -1,6 +1,6 @@
 #Imuta = {
 window.Imuta = {
-	clone: (some) -> 
+	clone: (some) ->
 		switch Object.prototype.toString.call(some)
 			when "[object Undefined]" then undefined
 			when "[object Boolean]" then some
@@ -11,7 +11,7 @@ window.Imuta = {
 			when "[object Array]" then some.map (el) -> Imuta.clone(el)
 			when "[object Object]" then Object.keys(some).reduce ((acc, k) -> acc[Imuta.clone(k)] = Imuta.clone(some[k]); acc), {}
 	equal: (a, b) ->
-		if a == b 
+		if a == b
 			true
 		else
 			[type_a, type_b] = [Object.prototype.toString.call(a), Object.prototype.toString.call(b)]
@@ -72,7 +72,8 @@ window.Imuta = {
 		if obj.hasOwnProperty(head)
 			if (tail.length == 0)
 				if Imuta.is_function(func) and (func.length == 1)
-					obj[head] = Imuta.clone(func(obj[head]))
+					target = obj[head]
+					obj[head] = func(target)
 					obj
 				else
 					throw(new Error("Get not function/1 handler in update_in func"))
@@ -81,5 +82,12 @@ window.Imuta = {
 				obj
 		else
 			throw(new Error("update_in func failed, obj has no property "+head))
+	access_in: (obj, path) ->
+		if (path.length == 0) then throw(new Error("access_in func failed, empty path"))
+		[head, tail...] = path
+		if obj.hasOwnProperty(head)
+			(if (tail.length == 0) then obj[head] else Imuta.access_in(obj[head], tail))
+		else
+			undefined
 }
 #module.exports = Imuta
