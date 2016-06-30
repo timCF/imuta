@@ -83,10 +83,13 @@ window.Imuta = {
 		else
 			throw(new Error("update_in func failed, obj has no property "+head))
 	access_in: (obj, path) ->
-		if (path.length == 0) then throw(new Error("access_in func failed, empty path"))
-		[head, tail...] = path
-		if obj.hasOwnProperty(head)
-			(if (tail.length == 0) then obj[head] else Imuta.access_in(obj[head], tail))
+		if obj
+			if (path.length == 0) then throw(new Error("access_in func failed, empty path"))
+			[head, tail...] = path
+			if obj.hasOwnProperty(head)
+				(if (tail.length == 0) then obj[head] else Imuta.access_in(obj[head], tail))
+			else
+				undefined
 		else
 			undefined
 }
