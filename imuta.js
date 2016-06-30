@@ -194,14 +194,10 @@
           throw new Error("access_in func failed, empty path");
         }
         head = path[0], tail = 2 <= path.length ? __slice.call(path, 1) : [];
-        if (obj.hasOwnProperty(head)) {
-          if (tail.length === 0) {
-            return obj[head];
-          } else {
-            return Imuta.access_in(obj[head], tail);
-          }
+        if (tail.length === 0) {
+          return obj[head];
         } else {
-          return void 0;
+          return Imuta.access_in(obj[head], tail);
         }
       } else {
         return void 0;
